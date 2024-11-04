@@ -5,6 +5,8 @@ import Home from './Pages/Home';
 import Profile from './Pages/Profile';
 import Reports from './Pages/Reports';
 import Navbar from './Components/NavBar';
+import AboutUs from './Pages/AboutUs';
+import Footer from './Pages/Footer';
 function App() {
   return (
     <div className='main'>
@@ -16,10 +18,14 @@ function App() {
        <Routes>
 
             <Route path="/" element={<Home/>} />
-            <Route path="/about" element={<Profile />} />
+            <Route path="/Profile" element={<Profile />} />
             <Route path="/services" element={<Reports />} />
-           
-         </Routes>
+            <Route path="/AboutUs" element={<AboutUs />} />
+      </Routes>
+
+      <footer>
+        <Footer />
+      </footer>
 
     </div>
   );

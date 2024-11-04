@@ -58,7 +58,7 @@ const Banner = () => {
               Explore Data
             </a>
             <a 
-              href="/learn-more" 
+              href="/AboutUs" 
               className="bg-transparent border border-white hover:bg-white hover:text-blue-900 text-white py-3 px-8 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
             >
               Our Story
@@ -119,31 +119,7 @@ const Banner = () => {
         </div>
       </div>
 
-      <footer className="bg-gray-900 text-white py-8">
-       <div className="container mx-auto flex flex-wrap justify-between items-center">
-   
-         <div className="w-full md:w-1/3 mb-4 md:mb-0 text-center md:text-left">
-          <p className="text-sm font-light">
-            Dedicated to empowering youth through education and resources.
-          </p>
-        </div>
-
-         <div className="w-full md:w-1/3 mb-4 md:mb-0 text-center">
-            <a href="/about" className="mx-2 hover:underline">About Us</a>
-            <a href="/contact" className="mx-2 hover:underline">Contact</a>
-            <a href="/privacy" className="mx-2 hover:underline">Privacy Policy</a>
-            <a href="/terms" className="mx-2 hover:underline">Terms of Service</a>
-          </div>
-
-    
-        <div className="w-full md:w-1/3 text-center md:text-right">
-            <a href="https://facebook.com" className="mx-2 hover:underline">Facebook</a>
-            <a href="https://twitter.com" className="mx-2 hover:underline">WhatsApp</a>
-            <a href="https://instagram.com" className="mx-2 hover:underline">Instagram</a>
-            <a href="https://instagram.com" className="mx-2 hover:underline">LinkedIn</a>
-          </div>
-        </div>
-     </footer>
+  
     </>
   );
 };
