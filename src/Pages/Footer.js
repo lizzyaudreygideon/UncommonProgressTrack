@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { PiInstagramLogoLight, PiFacebookLogoLight, PiTwitterLogoLight, PiLinkedinLogoLight } from "react-icons/pi";
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -15,16 +16,16 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-lg">Top Products</h3>
             <ul className="space-y-2">
               <li className="hover:text-white transition-colors">
-                <a href="#">Managed Website</a>
+                <Link href="/">Managed Website</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Manage Reputation</a>
+                <Link href="/">Manage Reputation</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Power Tools</a>
+                <Link href="/">Power Tools</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Marketing Service</a>
+                <Link href="/">Marketing Service</Link>
               </li>
             </ul>
           </div>
@@ -34,16 +35,16 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-lg">Quick Links</h3>
             <ul className="space-y-2">
               <li className="hover:text-white transition-colors">
-                <a href="#">Jobs</a>
+                <Link href="/">Jobs</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Brand Assets</a>
+                <Link href="/">Brand Assets</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Investor Relations</a>
+                <Link href="/">Investor Relations</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Terms of Service</a>
+                <Link href="/">Terms of Service</Link>
               </li>
             </ul>
           </div>
@@ -53,16 +54,16 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-lg">Features</h3>
             <ul className="space-y-2">
               <li className="hover:text-white transition-colors">
-                <a href="#">Brand Assets</a>
+                <Link href="/">Brand Assets</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Investor Relations</a>
+                <Link href="/">Investor Relations</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Jobs</a>
+                <Link href="/">Jobs</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Terms of Service</a>
+                <Link href="/">Terms of Service</Link>
               </li>
             </ul>
           </div>
@@ -72,16 +73,16 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-lg">Resources</h3>
             <ul className="space-y-2">
               <li className="hover:text-white transition-colors">
-                <a href="#">Guides</a>
+                <Link href="/">Guides</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Research</a>
+                <Link href="/">Research</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Experts</a>
+                <Link href="/">Experts</Link>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Agencies</a>
+                <Link href="/">Agencies</Link>
               </li>
             </ul>
           </div>
@@ -93,7 +94,7 @@ export default function Footer() {
               <input 
                 type="email" 
                 placeholder="Email Address" 
-                className="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-7"
+                className="w-full px-2 py-2 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-7"
               />
               <button className="absolute right-0 top-0 h-full px-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors">
                 Subscribe

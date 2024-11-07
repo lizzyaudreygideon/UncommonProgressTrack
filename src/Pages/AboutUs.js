@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // Fix the import to use named imports
 import { Gamepad2,} from 'lucide-react';
 
+
 const FloatingSprite = ({ emoji, delay }) => {
   const [position, setPosition] = useState(Math.random() * 100);
   
@@ -117,7 +118,7 @@ const AboutUs = () => {
             </h1>
             <div className="relative text-center m-auto">
               <p className="text-lg font-medium text-purple-200 my-6 w-1/2 text-center m-auto">
-              Welcome to uncommon.org, where data meets development. Our platform is dedicated to tracking the progress, statistics, and overall impact of our students’ learning journeys. We are driven by numbers, but behind every statistic is a story of transformation and growth.
+              Welcome to Uncommon.org, where data meets development. Our platform is dedicated to tracking the progress, statistics, and overall impact of our students’ learning journeys. We are driven by numbers, but behind every statistic is a story of transformation and growth.
               </p>
             </div>
             <div className="mt-4 flex gap-4 justify-center items-center">

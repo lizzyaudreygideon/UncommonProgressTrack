@@ -7,6 +7,34 @@ import Reports from './Pages/Reports';
 import Navbar from './Components/NavBar';
 import AboutUs from './Pages/AboutUs';
 import Footer from './Pages/Footer';
+
+// charts 
+import {
+  Chart as ChartJS,
+  LineElement,
+  BarElement,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import Dashboard from './Components/Dashboard';
+
+// Register elements globally
+ChartJS.register(
+  LineElement,
+  BarElement,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 function App() {
   return (
     <div className='main'>
@@ -19,8 +47,10 @@ function App() {
 
             <Route path="/" element={<Home/>} />
             <Route path="/Profile" element={<Profile />} />
-            <Route path="/services" element={<Reports />} />
+            <Route path="/reports" element={<Reports />} />
             <Route path="/AboutUs" element={<AboutUs />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+
       </Routes>
 
       <footer>
