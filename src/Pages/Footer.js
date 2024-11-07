@@ -15,10 +15,10 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-lg">Top Products</h3>
             <ul className="space-y-2">
               <li className="hover:text-white transition-colors">
-                <a href="#">Managed Website</a>
+                <a href="/">Managed Website</a>
               </li>
               <li className="hover:text-white transition-colors">
-                <a href="#">Manage Reputation</a>
+                <a href="">Manage Reputation</a>
               </li>
               <li className="hover:text-white transition-colors">
                 <a href="#">Power Tools</a>
