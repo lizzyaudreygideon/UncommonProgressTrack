@@ -7,7 +7,8 @@ import Reports from './Pages/Reports';
 import Navbar from './Components/NavBar';
 import AboutUs from './Pages/AboutUs';
 import Footer from './Pages/Footer';
-
+import Gallery from './Pages/Gallery';
+import LoginForm from './Hooks/LogIn';
 // charts 
 import {
   Chart as ChartJS,
@@ -49,6 +50,8 @@ function App() {
             <Route path="/Profile" element={<Profile />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/AboutUs" element={<AboutUs />} />
+            <Route path="/Gallery" element={<Gallery />} />
+            <Route path="/LoginForm" element={<LoginForm />} /> 
             <Route path="/dashboard" element={<Dashboard />} />
 
       </Routes>

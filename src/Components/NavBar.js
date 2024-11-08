@@ -24,10 +24,10 @@ const Navbar = () => {
         </div>
         
         <Link
-          to="/join"
+          to="/LoginForm "
           className="bg-yellow-400 text-black text-lg px-4 py-2 rounded-md hover:bg-white transition duration-200"
         >
-          Join Scratch
+          Add Student
         </Link>
       </div>
     </nav>

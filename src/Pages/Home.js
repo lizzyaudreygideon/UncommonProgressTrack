@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
-
+import Gallery from './Gallery';
 //import pictures
 import Scratch from "../Components/Gallery/Scratch-Block-Coding-1024x587.jpeg";
 import ChairKid from "../Components/Gallery/ChildrenHair.jpeg";
@@ -106,6 +105,9 @@ const Banner = () => {
           </div>
         </div>
       </div>
+
+      <h2 className='text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in text-center'>Our Galllery</h2>
+      <Gallery />
 
       {/* Charts Section */}
     <div className="p-8 w-full flex-col items-center justify-center">
