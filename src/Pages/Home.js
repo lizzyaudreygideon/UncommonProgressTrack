@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+
 //import pictures
 import Scratch from "../Components/Gallery/Scratch-Block-Coding-1024x587.jpeg";
 import ChairKid from "../Components/Gallery/ChildrenHair.jpeg";
 import HubEnter from "../Components/Gallery/HubEnter.jpeg";
+import Inside from "../Components/Gallery/Inside.jpeg";
+import Sarah from "../Components/Gallery/Sarah.jpeg";
+
 
 //import other components
 import useCountUp from '../Hooks/AnimatedCount';
@@ -31,6 +35,18 @@ const Banner = () => {
   const schools = useCountUp(30, 2000, isInView);
   const youths = useCountUp(1000, 2000, isInView);
 
+  // Carousel state
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [HubEnter, ChairKid, Inside, Sarah ];
+
+  // Carousel effect to switch images every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // 3 seconds
+    return () => clearInterval(interval);
+  }, );
+
   return (
     <>
       <div 
@@ -52,7 +68,7 @@ const Banner = () => {
           {/* Buttons */}
           <div className="flex justify-center gap-4 animate-slide-up">
             <a 
-              href="/get-started" 
+              href="/dashboard" 
               className="bg-blue-900 hover:bg-blue-700 text-white py-3 px-8 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
             >
               Explore Data
@@ -92,34 +108,48 @@ const Banner = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="p-16 w-full flex-col items-center justify-center">
-        <div className="flex  w-full  gap-8 p-4" style={{ margin: 'auto' }}>
-    
-         <div className="w-1/2 h-80">
-           <StatisticsChart />
-         </div>
-
-         <div 
-           className="w-1/2 h-80 bg-contain bg-center"  
-           style={{ backgroundImage: `url(${ChairKid})` }}
-         >
-         </div>
+    <div className="p-8 w-full flex-col items-center justify-center">
+      {/* Charts Section */}
+      <div className="flex w-full gap-8 p-4 " style={{ margin: 'auto' }}>
+        <div className="w-1/2 h-96 p-4 rounded-md border-4 border-blue-900">
+          <StatisticsChart 
+            options={{
+              scales: {
+                y: { grid: { color: '#cccccc' }, ticks: { color: '#ffffff' } },
+                x: { grid: { color: '#cccccc' }, ticks: { color: '#ffffff' } },
+              },
+              plugins: {
+                legend: { labels: { color: '#ffffff' } },
+              },
+            }}
+          />
         </div>
-        <div className="flex w-full  gap-8 p-8" style={{ margin: 'auto' }}>
-         <div 
-           className="w-1/2 h-80 bg-contain bg-center"  
-           style={{ backgroundImage: `url(${HubEnter})` }}
-         >
-         </div>
 
-         <div className="w-1/2 h-80">
-            <ImpactChart />
-         </div>
-
+        <div className="w-1/2 h-96 p-4 bg-blue-900 rounded-md">
+          <ImpactChart 
+            options={{
+              scales: {
+                y: { grid: { color: 'white' }, ticks: { color: 'white' } },
+                x: { grid: { color: 'white' }, ticks: { color: 'white' } },
+              },
+              plugins: {
+                legend: { labels: { color: 'white' } },
+              },
+            }}
+          />
         </div>
       </div>
 
-  
+      {/* Basic Carousel Section */}
+      
+        <div
+          className="w-full h-96 bg-cover p-4   bg-center rounded-md transition-all    transition: opacity .6s; 'duration-700' 'scale-110' 'ease-in-out'"
+          style={{ backgroundImage: `url(${images[currentImageIndex]})`,  margin: '8px  auto'  }}
+          
+        ></div>
+   
+    </div>
+      
     </>
   );
 };
