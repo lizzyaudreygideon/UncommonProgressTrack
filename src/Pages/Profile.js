@@ -1,20 +1,25 @@
 import React from 'react';
-import students from '../Components/Database/database';
+import StudentFilter from './studentFilter';  // Capitalized
+import StudentProfiles from './Student_profiles';  // Capitalized
 
-const Profile = () => {
+const StudentProfilePage = () => {
   return (
-    <div>
-      {students.map(prof => (
-           <div key={prof.id}>
-           <img src={prof.image_url} alt={prof.name} />
-           <h2>{prof.name}</h2>
-           <p>Grade: {prof.grade}</p>
-           <p>School: {prof.school}</p>
-           <p>Help: {prof.help_hub}</p>
-         </div>
-      ))}
-    </div>
-  )
-}
+    
+      
+    <div className='p-4 w-full flex justify-center items-start gap-12  '>
 
-export default Profile
+      <div className='flex-basis-1/3'>
+        <StudentFilter />   
+     </div>
+
+      <div className='flex-basis-2/3'> 
+        <StudentProfiles /> 
+      </div>
+
+    </div>
+
+    
+  );
+};
+
+export default StudentProfilePage;
