@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Gamepad2 } from 'lucide-react';
+import Games from './Games';
 
 const FloatingSprite = ({ emoji, delay }) => {
   const [position, setPosition] = useState(Math.random() * 100);
@@ -98,6 +99,7 @@ const AboutUs = () => {
         ))}
       </div>
 
+
       <style>
         {`
           @keyframes float {
@@ -123,6 +125,8 @@ const AboutUs = () => {
           }
         `}
       </style>
+
+      <Games />
     </div>
   );
 };
