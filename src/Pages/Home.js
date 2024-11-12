@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Gallery from './Gallery';
-//import pictures
+import Games from './Games';
 import Scratch from "../Components/Gallery/Scratch-Block-Coding-1024x587.jpeg";
 import ChairKid from "../Components/Gallery/ChildrenHair.jpeg";
 import HubEnter from "../Components/Gallery/HubEnter.jpeg";
 import Inside from "../Components/Gallery/Inside.jpeg";
 import Sarah from "../Components/Gallery/Sarah.jpeg";
 
-
 //import other components
 import useCountUp from '../Hooks/AnimatedCount';
 import StatisticsChart from '../Components/HomeStats/StatisticsChart';
 import ImpactChart from '../Components/HomeStats/ImpactChart';
 
-const Banner = () => {
+const Banner = (props) => {
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef(null);
 
@@ -140,17 +139,11 @@ const Banner = () => {
             }}
           />
         </div>
-      </div>
-
-      {/* Basic Carousel Section */}
-      
-        <div
-          className="w-full h-96 bg-cover p-4   bg-center rounded-md transition-all    transition: opacity .6s; 'duration-700' 'scale-110' 'ease-in-out'"
-          style={{ backgroundImage: `url(${images[currentImageIndex]})`,  margin: '8px  auto'  }}
-          
-        ></div>
+      </div>  
    
     </div>
+
+    <Games />
       
     </>
   );

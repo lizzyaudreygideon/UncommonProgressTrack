@@ -60,9 +60,9 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="h-full bg-gray-950 text-white">
       {/* Hero Section */}
-      <div className="relative h-screen overflow-hidden bg-blue-950">
+      <div className="relative h-screen overflow-hidden bg-blue-900">
         {/* Parallax Effect */}
         <div className="absolute inset-0 bg-fixed bg-cover bg-center" style={{ backgroundImage: 'url(https://example.com/your-image.jpg)' }}></div>
 
@@ -75,7 +75,7 @@ const AboutUs = () => {
 
         {/* Main Content */}
         <div className="relative h-full flex flex-col items-center justify-center px-4 text-center z-10">
-          <div className="space-y-6">
+          <div className="space-y-3">
             <h1 className="text-6xl font-bold text-white leading-tight">
               Unleash Your Statistics with ScratchTracker
             </h1>
@@ -83,7 +83,7 @@ const AboutUs = () => {
               At Uncommon, we empower the next generation of Scratch developers with innovative tools, real-time progress tracking, and a vibrant community.
             </p>
             <div className="mt-4 flex gap-4 justify-center items-center">
-              <button className="px-8 py-3 bg-blue-600 rounded-full font-medium transform hover:scale-105 transition-all hover:shadow-lg hover:shadow-purple-500/25 flex items-center gap-2">
+              <button className="px-8 py-3 bg-white text-black pt-2 rounded-full font-medium transform hover:scale-105 transition-all hover:shadow-lg hover:shadow-purple-500/25 flex items-center gap-2">
                 <Gamepad2 size={20} />
                 View Reports
               </button>
