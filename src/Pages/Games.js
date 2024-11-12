@@ -1,11 +1,14 @@
 import React from 'react';
-import Ghost1 from '../Components/Gallery/ghost1 (1).png';
+import ghost from '../Components/Gallery/ghostBusters.png';
+import Ikaruga from '../Components/Gallery/ikaruga.png';
+import Maze from '../Components/Gallery/themaze.png';
+import TomJerry from '../Components/Gallery/TomandJerry.png';
 import { GrNext } from 'react-icons/gr';
 
 function Games() {
   const cards = [
     {
-      img: Ghost1,
+      img: ghost,
       'main-text': 'Ghost Busters',
       paragraph: 'This is the first and most played game by the students. The simplest and beginner-friendly.',
       color: '#eab308',
@@ -13,27 +16,36 @@ function Games() {
       id: 1,
     },
     {
-      img: Ghost1,
-      'main-text': 'Fruit Ninja',
-      paragraph: 'Slice through flying fruits while avoiding bombs in this fast-paced game of all time.',
+      img: Ikaruga,
+      'main-text': 'Ikaruga',
+      paragraph: 'Cat only eats fruits of same color as fur,fast-paced game of all time.',
       color: '#0f766e',
       reviews: '4.7/5 based on 150 reviews',
       id: 2,
     },
     {
-      img: Ghost1,
-      'main-text': 'Puzzle Quest',
-      paragraph: 'Solve challenging puzzles to progress through a mysterious adventure.',
+      img: Maze,
+      'main-text': 'The Maze',
+      paragraph: 'Solve challenging puzzles to progress through to the next level of a mysterious adventure.',
       color: '#1d4ed8',
       reviews: '4.8/5 based on 200 reviews',
       id: 3,
     },
+    {
+      img: TomJerry,
+      'main-text': 'Tom and Jerry',
+      paragraph: 'Chase little Jerry till you catch him and gain points. The students energy is unmatched!',
+      color: '#1d2e3d',
+      reviews: '4.8/5 based on 200 reviews',
+      id: 4,
+    },
+
   ];
 
   return (
-    <div className="bg-gray-900 pt-12 px-6 pb-16">
-      <h2 className="text-center text-5xl font-extrabold text-white pb-12">Popular Games</h2>
-      <div className="flex flex-wrap justify-center gap-6">
+    <div className="bg-white p-12">
+      <h2 className="text-center text-5xl font-extrabold text-black pb-12">The Games We Play</h2>
+      <div className="flex  justify-center  items-center gap-8">
         {cards.map((game) => (
           <div
             key={game.id}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import students from '../Components/Database/database';
 import StudentFilter from './studentFilter';
 
+
 const StudentProfiles = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedHub, setSelectedHub] = useState('All');
@@ -72,9 +73,10 @@ const StudentProfiles = () => {
         ))}
       </ul>
 
+     
+
       </div>
 
-      
 
       {/* Pagination Controls */}
       <div className="flex justify-center mt-6">

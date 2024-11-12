@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Gamepad2 } from 'lucide-react';
-import Games from './Games';
+import { useNavigate } from 'react-router-dom';
+import rocky from "../Components/Gallery/5557528.jpg"
 
 const FloatingSprite = ({ emoji, delay }) => {
   const [position, setPosition] = useState(Math.random() * 100);
-
-  useEffect(() => {
+   useEffect(() => {
     const interval = setInterval(() => {
       setPosition(prev => (prev + 1) % 100);
     }, 50);
@@ -28,6 +28,7 @@ const FloatingSprite = ({ emoji, delay }) => {
 
 const AboutUs = () => {
   const spriteEmojis = ["🐱", "🎮", "🚀", "⭐", "🎨", "🎵"];
+  const navigate = useNavigate();
 
   const FeatureCard = ({ icon, title, description }) => (
     <div className="p-8 rounded-lg border-2 border-blue-400 transition-transform hover:-translate-y-1 hover:bg-white/8">
@@ -60,11 +61,11 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="h-full bg-gray-950 text-white">
+    <div className="h-full  text-white" style={{ backgroundImage: `url(${rocky})` }}>
       {/* Hero Section */}
-      <div className="relative h-screen overflow-hidden bg-blue-900">
+      <div className="relative h-screen overflow-hidden" >
         {/* Parallax Effect */}
-        <div className="absolute inset-0 bg-fixed bg-cover bg-center" style={{ backgroundImage: 'url(https://example.com/your-image.jpg)' }}></div>
+        <div className="absolute inset-0 bg-fixed bg-cover bg-center" ></div>
 
         {/* Floating Sprites */}
         <div className="absolute inset-0">
@@ -74,7 +75,7 @@ const AboutUs = () => {
         </div>
 
         {/* Main Content */}
-        <div className="relative h-full flex flex-col items-center justify-center px-4 text-center z-10">
+        <div className="relative h-full flex flex-col items-center justify-center px-4 text-center z-10 " >
           <div className="space-y-3">
             <h1 className="text-6xl font-bold text-white leading-tight">
               Unleash Your Statistics with ScratchTracker
@@ -83,7 +84,7 @@ const AboutUs = () => {
               At Uncommon, we empower the next generation of Scratch developers with innovative tools, real-time progress tracking, and a vibrant community.
             </p>
             <div className="mt-4 flex gap-4 justify-center items-center">
-              <button className="px-8 py-3 bg-white text-black pt-2 rounded-full font-medium transform hover:scale-105 transition-all hover:shadow-lg hover:shadow-purple-500/25 flex items-center gap-2">
+              <button onClick={() => navigate('/reports')} className="px-8 py-3 bg-white text-black pt-2 rounded-full font-medium transform hover:scale-105 transition-all hover:shadow-lg hover:shadow-purple-500/25 flex items-center gap-2">
                 <Gamepad2 size={20} />
                 View Reports
               </button>
@@ -126,7 +127,7 @@ const AboutUs = () => {
         `}
       </style>
 
-      <Games />
+     
     </div>
   );
 };
