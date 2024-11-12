@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import imgone from "../Components/Gallery/pexels-dothanhyb-5530437.jpg";
-import img2 from "../Components/Gallery/pexels-yankrukov-8199557.jpg";
-import img3 from "../Components/Gallery/pexels-gustavo-fring-5621934.jpg";
-import img4 from "../Components/Gallery/pexels-mikhail-nilov-9159042.jpg";
-import img5 from "../Components/Gallery/pexels-roman-odintsov-12719276.jpg";
-import img6 from "../Components/Gallery/pexels-mikhail-nilov-9159042.jpg";
-import img7 from "../Components/Gallery/pexels-gustavo-fring-5621934.jpg";
-import img8 from "../Components/Gallery/pexels-yankrukov-8617938.jpg";
-import img9 from "../Components/Gallery/pexels-yankrukov-8199557.jpg";
-import img10 from "../Components/Gallery/pexels-gustavo-fring-5621934.jpg";
+
+// importin g the gallery pictures
+import imgone from "../Components/Gallery/ChildrenHair.jpeg";
+import img2 from "../Components/Gallery/HubEnter.jpeg";
+import img3 from "../Components/Gallery/Inside.jpeg";
+import img4 from "../Components/Gallery/Sarah.jpeg";
+import img5 from "../Components/Gallery/Jean.png";
+import img6 from "../Components/Gallery/KidsLaptop.jpeg";
+import img7 from "../Components/Gallery/kidsScratch.jfif";
+import img8 from "../Components/Gallery/1718885371052.jfif";
+import img9 from "../Components/Gallery/learning.jfif";
+import img10 from "../Components/Gallery/peter and the kids.jfif";
+
 
 const Gallery = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -27,10 +30,10 @@ const Gallery = () => {
   ];
 
   return (
-    <div className="gallery-container mb-40 mt-20 flex flex-col items-center gap-5">
+    <div className="gallery-container p-12 mb-40 mt-20 flex flex-col items-center gap-5">
       {/* Top row with 5 images */}
       <div
-        className={`flex justify-evenly w-full px-4 mb-6 gap-3 ${isHovered ? 'paused' : 'animate-move-right'}`}
+        className={`flex  w-full mb-6 gap-3 ${isHovered ? 'paused' : 'animate-move-right'}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -55,7 +58,7 @@ const Gallery = () => {
 
       {/* Bottom row with 5 images */}
       <div
-        className={`flex justify-evenly w-full px-4 gap-3 ${isHovered ? 'paused' : 'animate-move-left'}`}
+        className={`flex justify-evenly w-full gap-3 ${isHovered ? 'paused' : 'animate-move-left'}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

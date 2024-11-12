@@ -2,10 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Gallery from './Gallery';
 import Games from './Games';
 import Scratch from "../Components/Gallery/Scratch-Block-Coding-1024x587.jpeg";
-import ChairKid from "../Components/Gallery/ChildrenHair.jpeg";
-import HubEnter from "../Components/Gallery/HubEnter.jpeg";
-import Inside from "../Components/Gallery/Inside.jpeg";
-import Sarah from "../Components/Gallery/Sarah.jpeg";
+
 
 //import other components
 import useCountUp from '../Hooks/AnimatedCount';
@@ -33,17 +30,17 @@ const Banner = (props) => {
   const schools = useCountUp(30, 2000, isInView);
   const youths = useCountUp(1000, 2000, isInView);
 
-  // Carousel state
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = [HubEnter, ChairKid, Inside, Sarah ];
+  // // Carousel state
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // const images = [HubEnter, ChairKid, Inside, Sarah ];
 
-  // Carousel effect to switch images every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // 3 seconds
-    return () => clearInterval(interval);
-  }, );
+  // // Carousel effect to switch images every 3 seconds
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  //   }, 3000); // 3 seconds
+  //   return () => clearInterval(interval);
+  // }, );
 
   return (
     <>
@@ -82,7 +79,7 @@ const Banner = (props) => {
       </div>
 
       {/* Statistics Section */}
-      <div ref={sectionRef} className='p-16 w-full flex items-center justify-center'>
+      <div ref={sectionRef} className='p-12 w-full flex items-center justify-center'>
         <div className='flex-basis-1/3 w-full h-40 border-b-4 border-r-8 border-blue-900 rounded-br-2xl flex-col items-center justify-center flex'>
           <div className='text-center border border-blue-900 rounded-md shadow-md drop-shadow-sm shadow-blue-500 p-4'>
             <h2 className="text-xl md:text-l font-extrabold leading-tight animate-fade-in">Our Hubs</h2>
@@ -105,10 +102,11 @@ const Banner = (props) => {
         </div>
       </div>
 
-      <h2 className='text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in text-center'>Our Galllery</h2>
+      <h2 className='text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in text-center'>Our Work In Pictures</h2>
       <Gallery />
 
       {/* Charts Section */}
+      <h2 className='text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in text-center'>Data Overview</h2>
     <div className="p-8 w-full flex-col items-center justify-center">
       {/* Charts Section */}
       <div className="flex w-full gap-8 p-4 " style={{ margin: 'auto' }}>
@@ -142,6 +140,7 @@ const Banner = (props) => {
       </div>  
    
     </div>
+
 
     <Games />
       

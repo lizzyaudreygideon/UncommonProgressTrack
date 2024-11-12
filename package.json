@@ -10,6 +10,8 @@
     "chart.js": "^4.4.6",
     "file-saver": "^2.0.5",
     "firebase": "^11.0.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "lucide-react": "^0.454.0",
     "my-app": "file:",
     "papaparse": "^5.4.1",
