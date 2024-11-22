@@ -129,27 +129,35 @@ function AddStudent() {
             </div>
           </div>
 
-          {/* Grade and Game Selection (Side by Side) */}
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <label htmlFor="Grade" className="text-blue-600 font-semibold text-sm">Grade</label>
+          <div>
+              <label htmlFor="Grade" className="text-blue-600 font-semibold text-sm">Hub</label>
               <input 
                 type="text" 
-                placeholder='Grade' 
+                placeholder='Hub' 
                 className="w-full p-1 border border-blue-400 rounded focus:outline-none focus:ring focus:ring-yellow-300"
               />
             </div>
+
+          {/* Grade and Game Selection (Side by Side) */}
+          <div className="grid grid-cols-2 gap-2">
             <div>
-              <label htmlFor="Current-Game" className="text-blue-600 font-semibold text-sm">Game</label>
+              <label htmlFor="Grade" className="text-blue-600 font-semibold text-sm">Age</label>
+              <input 
+                type="text" 
+                placeholder='Age' 
+                className="w-full p-1 border border-blue-400 rounded focus:outline-none focus:ring focus:ring-yellow-300"
+              />
+            </div>
+           
+            <div>
+              <label htmlFor="Current-Game" className="text-blue-600 font-semibold text-sm">Gender</label>
               <select 
-                name="Current-Game" 
+                name="gender" 
                 className="w-full p-1 border border-blue-400 rounded focus:outline-none focus:ring focus:ring-yellow-300"
               >
-                <option value="">Select</option>
-                <option value="Flying Cat">Flying Cat</option>
-                <option value="Apple Catcher">Apple Catcher</option>
-                <option value="Tom and Jerry">Tom and Jerry</option>
-                <option value="Flappy Birds">Flappy Birds</option>
+                <option value="">Select 1</option>
+                 <option value="Female">Female</option>
+                <option value="Male">Male</option>
               </select>
             </div>
           </div>
