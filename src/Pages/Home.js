@@ -79,28 +79,46 @@ const Banner = (props) => {
       </div>
 
       {/* Statistics Section */}
-      <div ref={sectionRef} className='p-12 w-full flex items-center justify-center'>
-        <div className='flex-basis-1/3 w-full h-40 border-b-4 border-r-8 border-blue-900 rounded-br-2xl flex-col items-center justify-center flex'>
-          <div className='text-center border border-blue-900 rounded-md shadow-md drop-shadow-sm shadow-blue-500 p-4'>
-            <h2 className="text-xl md:text-l font-extrabold leading-tight animate-fade-in">Our Hubs</h2>
-            <p className="text-l md:text-l font-bold animate-slide-up">{hubs}</p>
-          </div>
-        </div>
+      <div ref={sectionRef} className="p-6 sm:p-12 w-full flex flex-wrap items-center justify-center gap-6" style={{
+  
+            width: '100%',
+            height: 'auto',
+            // Media query for small screens
+            '@media (max-width: 600px)': {
+              flexDirection: 'column',
+              alignItems: 'center',
+            },
+            // Media query for medium screens
+            '@media (min-width: 601px) and (max-width: 1000px)': {
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            },
+          }}>
+            {/* Our Hubs */}
+            <div className="basis-full sm:basis-1/3 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 w-full h-40 sm:h-48 border-b-4 sm:border-r-8 border-blue-900 rounded-br-2xl flex-col items-center justify-center flex">
+              <div className="text-center border border-blue-900 rounded-md shadow-md drop-shadow-sm shadow-blue-500 p-4">
+                <h2 className="text-lg sm:text-xl font-extrabold leading-tight animate-fade-in">Our Hubs</h2>
+                <p className="text-sm sm:text-lg font-bold animate-slide-up">{hubs}</p>
+              </div>
+            </div>
 
-        <div className='flex-basis-1/3 w-full h-40 border-t-4 border-r-8 border-orange-500 rounded-tr-2xl flex-col items-center justify-center flex'>
-          <div className='text-center border border-orange-500 rounded-md shadow-md drop-shadow-sm shadow-orange-300 p-4'>
-            <h2 className="text-xl md:text-l font-bold leading-tight animate-fade-in">Schools worked with</h2>
-            <p className="text-l md:text-l font-medium animate-slide-up">{schools}+</p>
-          </div>
-        </div>
+            {/* Schools Worked With */}
+            <div className="basis-full sm:basis-1/3 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 w-full h-40 sm:h-48 border-t-4 sm:border-r-8 border-orange-500 rounded-tr-2xl flex-col items-center justify-center flex">
+              <div className="text-center border border-orange-500 rounded-md shadow-md drop-shadow-sm shadow-orange-300 p-4">
+                <h2 className="text-lg sm:text-xl font-bold leading-tight animate-fade-in">Schools Worked With</h2>
+                <p className="text-sm sm:text-lg font-medium animate-slide-up">{schools}+</p>
+              </div>
+            </div>
 
-        <div className='flex-basis-1/3 w-full h-40 border-b-4 border-r-8 border-yellow-500 rounded-br-2xl flex-col items-center justify-center flex'>
-          <div className='text-center border border-yellow-500 rounded-md shadow-md drop-shadow-sm shadow-yellow-400 p-4'>
-            <h2 className="text-xl md:text-l font-bold leading-tight animate-fade-in">Youths taught</h2>
-            <p className="text-l md:text-l font-medium animate-slide-up">{youths}+</p>
-          </div>
-        </div>
-      </div>
+            {/* Youths Taught */}
+            <div className="basis-full sm:basis-1/3 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 w-full h-40 sm:h-48 border-b-4 sm:border-r-8 border-yellow-500 rounded-br-2xl flex-col items-center justify-center flex">
+              <div className="text-center border border-yellow-500 rounded-md shadow-md drop-shadow-sm shadow-yellow-400 p-4">
+                <h2 className="text-lg sm:text-xl font-bold leading-tight animate-fade-in">Youths Taught</h2>
+                <p className="text-sm sm:text-lg font-medium animate-slide-up">{youths}+</p>
+              </div>
+            </div>
+     </div>
+
 
       <h2 className='text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in text-center'>Our Work In Pictures</h2>
       <Gallery />
