@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Gallery from './Gallery';
 import Games from './Games';
 import Scratch from "../Components/Gallery/Scratch-Block-Coding-1024x587.jpeg";
+import { Link } from 'react-router-dom';
 
 
 //import other components
@@ -62,18 +63,18 @@ const Banner = (props) => {
 
           {/* Buttons */}
           <div className="flex justify-center gap-4 animate-slide-up">
-            <a 
-              href="/dashboard" 
+            <Link 
+              to="/dashboard" 
               className="bg-blue-900 hover:bg-blue-700 text-white py-3 px-8 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
             >
               Explore Data
-            </a>
-            <a 
-              href="/AboutUs" 
+            </Link>
+            <Link 
+             to="/AboutUs" 
               className="bg-transparent border border-white hover:bg-white hover:text-blue-900 text-white py-3 px-8 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
             >
               Our Story
-            </a>
+            </Link>
           </div>
         </div>
       </div>
