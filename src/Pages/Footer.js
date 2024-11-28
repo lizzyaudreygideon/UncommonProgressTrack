@@ -15,16 +15,13 @@ export default function Footer() {
             <h3 className="font-semibold text-lg">Explore</h3>
             <ul className="space-y-2">
               <li className="hover:text-orange-400 transition-colors">
-                <Link to="/">Coding Challenges</Link>
+                <Link to="https://playground.uncommon.org/">Coding Challenges</Link>
+              </li>          
+              <li className="hover:text-orange-400 transition-colors">
+                <Link to="https://playground.uncommon.org/home">Scratch Tutorials</Link>
               </li>
               <li className="hover:text-orange-400 transition-colors">
-                <Link to="/">Statistics Tools</Link>
-              </li>
-              <li className="hover:text-orange-400 transition-colors">
-                <Link to="/">Scratch Tutorials</Link>
-              </li>
-              <li className="hover:text-orange-400 transition-colors">
-                <Link to="/">Learning Resources</Link>
+                <Link to="https://playground.uncommon.org/">Learning Resources</Link>
               </li>
             </ul>
           </div>
