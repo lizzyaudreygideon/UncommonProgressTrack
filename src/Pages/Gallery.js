@@ -33,7 +33,7 @@ const Gallery = () => {
     <div className="gallery-container p-12 mb-40 mt-20 flex flex-col items-center gap-5">
       {/* Top row with 5 images */}
       <div
-        className={`flex  w-full mb-6 gap-3 ${isHovered ? 'paused' : 'animate-move-right'}`}
+        className={`flex  w-full mb-12 gap-8 ${isHovered ? 'paused' : 'animate-move-right'}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -58,7 +58,7 @@ const Gallery = () => {
 
       {/* Bottom row with 5 images */}
       <div
-        className={`flex justify-evenly w-full gap-3 ${isHovered ? 'paused' : 'animate-move-left'}`}
+        className={`flex justify-evenly w-full gap-8 ${isHovered ? 'paused' : 'animate-move-left'}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

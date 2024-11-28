@@ -18,7 +18,7 @@ function Games() {
     {
       img: Ikaruga,
       'main-text': 'Ikaruga',
-      paragraph: 'Cat only eats fruits of same color as fur,fast-paced game of all time.',
+      paragraph: 'Cat only eats fruits of same color as fur, fast-paced game of all time.',
       color: '#0f766e',
       reviews: '4.7/5 based on 150 reviews',
       id: 2,
@@ -39,23 +39,22 @@ function Games() {
       reviews: '4.8/5 based on 200 reviews',
       id: 4,
     },
-
   ];
 
   return (
-    <div className="bg-white p-12">
+    <div className="bg-white p-6 sm:p-12">
       <h2 className="text-center text-5xl font-extrabold text-black pb-12">The Games We Play</h2>
-      <div className="flex  justify-center  items-center gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {cards.map((game) => (
           <div
             key={game.id}
             style={{ backgroundColor: game.color }}
-            className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-opacity-90"
+            className="relative p-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-opacity-90"
           >
             <img
               src={game.img}
               alt={game['main-text']}
-              className="m-auto mb-4 w-full h-48 object-contain rounded-md"
+              className="m-auto mb-4 w-full h-48 object-cover rounded-md"
             />
             <div className="bg-white p-4 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold text-black mb-2">{game['main-text']}</h3>
