@@ -1,0 +1,42 @@
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9); /* Background with transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+  }
+  
+  .bar {
+    width: 10px;
+    background: #2F4F7F; /* Primary color */
+    animation: grow 1s infinite ease-in-out;
+    border-radius: 4px;
+  }
+  
+  .bar1 { height: 30px; animation-delay: 0s; }
+  .bar2 { height: 50px; animation-delay: 0.1s; }
+  .bar3 { height: 70px; animation-delay: 0.2s; }
+  .bar4 { height: 50px; animation-delay: 0.3s; }
+  .bar5 { height: 30px; animation-delay: 0.4s; }
+  
+  @keyframes grow {
+    0%, 100% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.5);
+    }
+  }
+  
