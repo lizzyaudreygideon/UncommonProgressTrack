@@ -1,70 +1,91 @@
 import React from 'react';
-import { SearchIcon } from 'lucide-react';
 
-function StudentFilter({ setSearchTerm, setSelectedHub, setSelectedStatus, setSelectedGame }) {
+const StudentFilter = ({
+  setSearchTerm,
+  setSelectedHub,
+  setSelectedStatus,
+  setSelectedGame,
+}) => {
+  const hubs = ['All', 'Hub 1', 'Hub 2', 'Hub 3'];
+  const statuses = ['All', 'Active', 'Inactive', 'Graduated'];
+  const games = ['All', 'Game A', 'Game B', 'Game C'];
+
   return (
-    <div className="bg-blue-900 p-4 rounded-lg">
-      <h1 className="text-2xl font-bold text-white mb-3">Student Profiles</h1>
-
-      <div className="mb-6">
-        <div className="flex items-center border rounded-md p-2">
-          <SearchIcon className="mr-2 text-gray-500" />
+    <div className="p-4 bg-blue-900 border rounded-md shadow-md ">
+      <h2 className="text-2xl text-white font-semibold mb-4 text-center md:text-left">
+        Filter Students
+      </h2>
+      <div className="space-y-4">
+        {/* Search Field */}
+        <div className="flex flex-col">
+          <label htmlFor="search" className="text-sm font-medium mb-1 text-white">
+            Search by Name
+          </label>
           <input
             type="text"
-            placeholder="Search students..."
-            className="focus:outline-none bg-blue-900 m-auto"
+            id="search"
+            placeholder="Enter student name"
+            className="border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300 text-black"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 mb-6">
-        <div className="bg-blue-950 p-2 my-3 rounded-md">
-          <label className="block font-medium mb-2 text-white">Uncommon Hubs</label>
+        {/* Hub Filter */}
+        <div className="flex flex-col">
+          <label htmlFor="hub" className="text-sm font-medium mb-1 text-white">
+            Help Hub
+          </label>
           <select
             id="hub"
-            className="focus:outline-blue-500 rounded-md p-1 mb-1 w-52"
+            className="border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300 text-black"
             onChange={(e) => setSelectedHub(e.target.value)}
           >
-            <option value="All">All</option>
-            <option value="Kambuzuma Hub">Kambuzuma</option>
-            <option value="Warren Park Hub">Warren Park</option>
-            <option value="Dzivarasekwa Hub">Dzivarasekwa</option>
-            <option value="Kuwadzana Hub">Kuwadzana</option>
-            <option value="Mufakose Hub">Mufakose</option>
+            {hubs.map((hub) => (
+              <option key={hub} value={hub}>
+                {hub}
+              </option>
+            ))}
           </select>
         </div>
 
-        <div className="bg-blue-950 p-2 my-3 rounded-md">
-          <label htmlFor="status" className="block font-medium mb-2 text-white">Status</label>
+        {/* Status Filter */}
+        <div className="flex flex-col">
+          <label htmlFor="status" className="text-sm font-medium mb-1 text-white">
+            Status
+          </label>
           <select
             id="status"
-            className="focus:outline-blue-500 rounded-md p-1 mb-1 w-52"
+            className="border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
-            <option value="All">All</option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
+            {statuses.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
           </select>
         </div>
 
-        <div className="bg-blue-950 p-2 my-3 rounded-md">
-          <label htmlFor="game" className="block font-medium mb-2 text-white">Game</label>
+        {/* Game Filter */}
+        <div className="flex flex-col">
+          <label htmlFor="game" className="text-sm font-medium mb-1 text-white">
+            Current Game
+          </label>
           <select
             id="game"
-            className="focus:outline-blue-500 rounded-md p-1 mb-1 w-52"
+            className="border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
             onChange={(e) => setSelectedGame(e.target.value)}
           >
-            <option value="All">Select</option>
-            <option value="Ghost Busters">Ghost Busters</option>
-            <option value="Apple Catcher">Apple Catcher</option>
-            <option value="Flying Cat">Flying Cat</option>
-            <option value="Tom and Jerry">Tom and Jerry</option>
+            {games.map((game) => (
+              <option key={game} value={game}>
+                {game}
+              </option>
+            ))}
           </select>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default StudentFilter;
