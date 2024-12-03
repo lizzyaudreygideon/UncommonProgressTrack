@@ -78,7 +78,7 @@ function AddStudent() {
     }
 
     try {
-      await axios.post('http://localhost:5000/student', form, {
+      await axios.post('https://tasteless-marin-isdor-151c6308.koyeb.app/student', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

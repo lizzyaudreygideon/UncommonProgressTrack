@@ -27,7 +27,7 @@ function Signup({ toggleForm }) {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/auth/register', {
+      const response = await axios.post('https://tasteless-marin-isdor-151c6308.koyeb.app/auth/register', {
         email,
         password,
       });

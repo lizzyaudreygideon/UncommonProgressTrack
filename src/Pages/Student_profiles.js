@@ -19,7 +19,7 @@ const StudentProfiles = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await fetch('http://localhost:5000/student', { method: 'GET' });
+      const response = await fetch('https://tasteless-marin-isdor-151c6308.koyeb.app/student', { method: 'GET' });
       if (!response.ok) throw new Error('Failed to fetch students');
       const data = await response.json();
       const validatedData = data.map((student) => ({
@@ -78,7 +78,7 @@ const StudentProfiles = () => {
 
   const handleStudentUpdate = async (updatedStudent) => {
     try {
-      const response = await fetch(`http://localhost:5000/student/${updatedStudent._id}`, {
+      const response = await fetch(`https://tasteless-marin-isdor-151c6308.koyeb.app/student/${updatedStudent._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedStudent),
@@ -97,7 +97,7 @@ const StudentProfiles = () => {
 
   const handleDelete = async (studentId) => {
     try {
-      const response = await fetch(`http://localhost:5000/student/${studentId}`, {
+      const response = await fetch(`https://tasteless-marin-isdor-151c6308.koyeb.app/student/${studentId}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete student');
@@ -131,7 +131,7 @@ const StudentProfiles = () => {
               className="bg-white border rounded-md shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               <img
-                src={`http://localhost:5000/${student.image}`}
+                src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${student.image}`}
                 alt={`${student.name}`}
                 className="w-full h-48 object-cover"
                 onError={handleImageError}
