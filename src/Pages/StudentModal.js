@@ -74,8 +74,8 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
     }
 
     const endpoint = isEditing
-      ? `http://localhost:5000/student/${student._id}`
-      : `http://localhost:5000/student`;
+      ? `https://tasteless-marin-isdor-151c6308.koyeb.app/student/${student._id}`
+      : `https://tasteless-marin-isdor-151c6308.koyeb.app/student`;
     const method = isEditing ? 'PUT' : 'POST';
 
     try {
@@ -104,7 +104,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/student/${student._id}`, {
+      const response = await fetch(`https://tasteless-marin-isdor-151c6308.koyeb.app/student/${student._id}`, {
         method: 'DELETE',
       });
 
