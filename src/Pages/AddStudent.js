@@ -78,7 +78,7 @@ function AddStudent() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/student', form, {
+      await axios.post('http://localhost:5000/student', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -104,7 +104,7 @@ function AddStudent() {
     }
   };
 
-  // Popup Component
+  // Rest of your component remains exactly the same
   const SuccessPopup = ({ isVisible, onClose }) => {
     useEffect(() => {
       if (isVisible) {
