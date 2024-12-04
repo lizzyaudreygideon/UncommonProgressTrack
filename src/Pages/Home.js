@@ -93,21 +93,28 @@ const Banner = () => {
       <h2 className='text-5xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in text-center'>Data Overview</h2>
       <div className="p-8 w-full flex flex-col items-center justify-center">
         <div className="flex flex-col md:flex-row w-full gap-8 p-4">
-          <div className="w-full md:w-1/2 h-96 p-4 rounded-md border-4 border-blue-900">
-            <StatisticsChart 
-              options={{
-                scales: {
-                  y: { grid: { color: '#cccccc' }, ticks: { color: '#ffffff' } },
-                  x: { grid: { color: '#cccccc' }, ticks: { color: '#ffffff' } },
-                },
-                plugins: {
-                  legend: { labels: { color: '#ffffff' } },
-                },
-              }}
-            />
-          </div>
+        <div className="w-full md:w-1/2 h-44 sm:h-96 p-4 rounded-md border-4 border-blue-900">
+  <div className="w-full h-full">
+    <StatisticsChart 
+      options={{
+        responsive: true,
+        maintainAspectRatio: true,
+        layout: {
+          padding: 0
+        },
+        scales: {
+          y: { grid: { color: '#cccccc' }, ticks: { color: '#ffffff' } },
+          x: { grid: { color: '#cccccc' }, ticks: { color: '#ffffff' } },
+        },
+        plugins: {
+          legend: { labels: { color: '#ffffff' } },
+        },
+      }}
+    />
+  </div>
+        </div>
 
-          <div className="w-full md:w-1/2 h-96 p-4 bg-blue-900 rounded-md">
+          <div className="w-full md:w-1/2 h-96 sm:h-45 p-4 bg-blue-900 rounded-md">
             <ImpactChart 
               options={{
                 scales: {

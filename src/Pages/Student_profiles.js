@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import StudentFilter from './studentFilter'
+import StudentFilter from './studentFilter';
 import StudentModal from './StudentModal';
 
 const StudentProfiles = () => {
@@ -8,20 +8,29 @@ const StudentProfiles = () => {
   const [selectedHub, setSelectedHub] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedGame, setSelectedGame] = useState('All');
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [updateMessage, setUpdateMessage] = useState('');
+  const [deleteMessage, setDeleteMessage] = useState('');
   const itemsPerPage = 6;
 
   const fallbackImage = '/api/placeholder/288/176';
 
-  const fetchStudents = async () => {
+  const fetchStudents = async (page = 1) => {
     try {
-      const response = await fetch('https://tasteless-marin-isdor-151c6308.koyeb.app/student', { method: 'GET' });
+      setLoading(true);
+      const response = await fetch(
+        `https://tasteless-marin-isdor-151c6308.koyeb.app/student?page=${page}&limit=${itemsPerPage}`,
+        { method: 'GET' }
+      );
       if (!response.ok) throw new Error('Failed to fetch students');
       const data = await response.json();
+
+      if (data.length < itemsPerPage) setHasMore(false);
+
       const validatedData = data.map((student) => ({
         ...student,
         name: student.username || 'Unnamed Student',
@@ -31,7 +40,13 @@ const StudentProfiles = () => {
         school: student.school || 'Unknown School',
         image: student.image || fallbackImage,
       }));
-      setStudents(validatedData);
+
+      setStudents((prevStudents) =>
+        [...prevStudents, ...validatedData].filter(
+          (student, index, self) =>
+            self.findIndex((s) => s._id === student._id) === index
+        )
+      );
       setLoading(false);
     } catch (err) {
       setError(err.message);
@@ -52,19 +67,13 @@ const StudentProfiles = () => {
       const studentGame = student.current_game || '';
       const isNameMatch = studentName.includes(searchTermLower);
       const isHubMatch = selectedHub === 'All' || studentHub === selectedHub;
-      const isStatusMatch = selectedStatus === 'All' || studentStatus === selectedStatus;
-      const isGameMatch = selectedGame === 'All' || studentGame === selectedGame;
+      const isStatusMatch =
+        selectedStatus === 'All' || studentStatus === selectedStatus;
+      const isGameMatch =
+        selectedGame === 'All' || studentGame === selectedGame;
       return isNameMatch && isHubMatch && isStatusMatch && isGameMatch;
     });
   }, [students, searchTerm, selectedHub, selectedStatus, selectedGame]);
-
-  const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentStudents = filteredStudents.slice(startIndex, endIndex);
-
-  const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
 
   const handleImageError = (e) => {
     e.target.src = fallbackImage;
@@ -78,18 +87,22 @@ const StudentProfiles = () => {
 
   const handleStudentUpdate = async (updatedStudent) => {
     try {
-      const response = await fetch(`https://tasteless-marin-isdor-151c6308.koyeb.app/student/${updatedStudent._id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedStudent),
-      });
+      const response = await fetch(
+        `https://tasteless-marin-isdor-151c6308.koyeb.app/student/${updatedStudent._id}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedStudent),
+        }
+      );
       if (!response.ok) throw new Error('Failed to update student');
       setStudents((prevStudents) =>
         prevStudents.map((student) =>
           student._id === updatedStudent._id ? updatedStudent : student
         )
       );
-      fetchStudents();
+      setUpdateMessage('Details updated successfully!');
+      setTimeout(() => setUpdateMessage(''), 3000); // Hide message after 3 seconds
     } catch (error) {
       console.error('Error updating student:', error);
     }
@@ -97,20 +110,53 @@ const StudentProfiles = () => {
 
   const handleDelete = async (studentId) => {
     try {
-      const response = await fetch(`https://tasteless-marin-isdor-151c6308.koyeb.app/student/${studentId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://tasteless-marin-isdor-151c6308.koyeb.app/student/${studentId}`,
+        { method: 'DELETE' }
+      );
       if (!response.ok) throw new Error('Failed to delete student');
       setStudents((prevStudents) =>
         prevStudents.filter((student) => student._id !== studentId)
       );
-      fetchStudents();
+      setDeleteMessage('Student deleted successfully!');
+      setTimeout(() => setDeleteMessage(''), 3000); // Hide message after 3 seconds
     } catch (error) {
       console.error('Error deleting student:', error);
     }
   };
 
-  if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  useEffect(() => {
+    const container = document.getElementById('student-list-container');
+    let scrollTimeout;
+
+    const handleScroll = (e) => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const bottom =
+          e.target.scrollHeight === e.target.scrollTop + e.target.clientHeight;
+        if (bottom && hasMore && !loading) {
+          fetchStudents(Math.ceil(students.length / itemsPerPage) + 1);
+        }
+      }, 100);
+    };
+
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [hasMore, loading, students.length]);
+
+  const LoadingPlaceholder = () => (
+    <div className="animate-pulse bg-gray-200 h-48 w-full"></div>
+  );
+
+  if (loading && students.length === 0)
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   if (error) return <div className="text-red-500 text-center">{error}</div>;
 
   return (
@@ -123,48 +169,54 @@ const StudentProfiles = () => {
           setSelectedGame={setSelectedGame}
         />
       </div>
-      <div className="flex-grow">
+      <div
+        className="flex-grow"
+        id="student-list-container"
+        style={{ maxHeight: '80vh', overflowY: 'auto' }}
+      >
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentStudents.map((student) => (
-            <li
-              key={student._id}
-              className="bg-white border rounded-md shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-            >
-              <img
-                src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${student.image}`}
-                alt={`${student.name}`}
-                className="w-full h-48 object-cover"
-                onError={handleImageError}
-              />
-              <div className="p-4">
-                <h3 className="font-semibold">{student.name}</h3>
-                <p>{student.school}</p>
-                <button
-                  onClick={() => handleStudentClick(student)}
-                  className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                >
-                  View Details
-                </button>
-              </div>
-            </li>
-          ))}
+          {loading &&
+            Array.from({ length: itemsPerPage }).map((_, index) => (
+              <li key={index}>
+                <LoadingPlaceholder />
+              </li>
+            ))}
+          {!loading &&
+            filteredStudents.map((student) => (
+              <li
+                key={student._id}
+                className="bg-white border rounded-md shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+              >
+                <img
+                  src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${student.image}`}
+                  alt={`${student.name}`}
+                  className="w-full h-56 object-cover"
+                  onError={handleImageError}
+                />
+                <div className="p-4">
+                  <h3 className="font-semibold">{student.name}</h3>
+                  <p>{student.school}</p>
+                  <button
+                    onClick={() => handleStudentClick(student)}
+                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </li>
+            ))}
         </ul>
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={handlePrevPage}
-            className={`px-4 py-2 mx-2 rounded-md ${currentPage > 1 ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          <button
-            onClick={handleNextPage}
-            className={`px-4 py-2 mx-2 rounded-md ${currentPage < totalPages ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
+        {loading && (
+          <div className="text-center mt-4">
+            <p>Loading more students...</p>
+          </div>
+        )}
+        {updateMessage && (
+          <div className="text-green-500 text-center mt-4">{updateMessage}</div>
+        )}
+        {deleteMessage && (
+          <div className="text-red-500 text-center mt-4">{deleteMessage}</div>
+        )}
       </div>
       {selectedStudent && (
         <StudentModal

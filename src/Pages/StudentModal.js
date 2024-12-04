@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 const InputField = ({ label, name, value, onChange, type = 'text' }) => (
@@ -16,7 +17,7 @@ const InputField = ({ label, name, value, onChange, type = 'text' }) => (
   </div>
 );
 
-const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
+const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, updateStudentList }) => {
   const [formData, setFormData] = useState({
     username: '',
     school: '',
@@ -24,13 +25,18 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
     age: '',
     gender: '',
     email: '',
+    image: '',
   });
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
+  const [imagePreview, setImagePreview] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     if (student) {
       setFormData(student);
+      setImagePreview(student.image); // Set existing image for edit mode
       setIsEditing(true);
     } else {
       setFormData({
@@ -40,10 +46,13 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
         age: '',
         gender: '',
         email: '',
+        image: '',
       });
+      setImagePreview(null);
+      setImageFile(null);
       setIsEditing(false);
     }
-    setError(''); // Reset error on modal open
+    setError('');
   }, [student]);
 
   if (!isOpen) return null;
@@ -53,8 +62,17 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+      setImageFile(file); // Save the file for uploading
+      setFormData((prev) => ({ ...prev, image: file.name })); // Update formData with the file name
+    }
+  };
+
   const validateFields = () => {
-    if (!formData.username || !formData.school || !formData.hub || !formData.age || !formData.email) {
+    if (!formData.username || !formData.school || !formData.hub || !formData.age || !formData.email || !imagePreview) {
       return 'All fields are required.';
     }
     if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
@@ -73,6 +91,17 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
       return;
     }
 
+    const formDataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key !== 'image' || !imageFile) {
+        formDataToSend.append(key, formData[key]);
+      }
+    });
+
+    if (imageFile) {
+      formDataToSend.append('image', imageFile); // Append the image file
+    }
+
     const endpoint = isEditing
       ? `https://tasteless-marin-isdor-151c6308.koyeb.app/student/${student._id}`
       : `https://tasteless-marin-isdor-151c6308.koyeb.app/student`;
@@ -81,10 +110,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
     try {
       const response = await fetch(endpoint, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
 
       if (!response.ok) {
@@ -103,6 +129,8 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
   };
 
   const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this student?')) return;
+
     try {
       const response = await fetch(`https://tasteless-marin-isdor-151c6308.koyeb.app/student/${student._id}`, {
         method: 'DELETE',
@@ -110,20 +138,14 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Delete failed');
+        throw new Error(errorData.message || 'Failed to delete student');
       }
 
-      // Handle the deletion locally (since we're not using onDelete prop)
-      setFormData({
-        username: '',
-        school: '',
-        hub: '',
-        age: '',
-        gender: '',
-        email: '',
-      });
-      setIsEditing(false);
-      onClose(); // Close the modal after successful deletion
+      // After deleting, update the student list in the parent component without needing a page refresh
+      onDelete(student._id); // Pass the student ID to the parent component
+      setSuccessMessage('Student profile deleted successfully!');
+      onClose();
+      updateStudentList(); // This function will re-fetch or update the student list
     } catch (err) {
       setError(err.message);
     }
@@ -141,6 +163,39 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
           {isEditing ? 'Edit Student' : 'Add Student'}
         </h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
+
+        {/* Displaying the existing image */}
+        {imagePreview && (
+          <div className="mb-4">
+            <img
+              src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${imagePreview}`} // Adjust to the URL where the image is hosted
+              alt="Student"
+              className="w-full h-64 rounded-md mb-2 object-cover"
+            />
+            <button
+              onClick={() => setImagePreview(null)}
+              className="mt-2 px-3 py-1 text-sm bg-blue-500 text-white hover:text-black rounded hover:bg-gray-300"
+            >
+              Update Image
+            </button>
+          </div>
+        )}
+
+        {/* Uploading a new image */}
+        {!imagePreview && (
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Upload Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
+        )}
+
         <form className="space-y-4">
           {['username', 'school', 'hub', 'age', 'gender', 'email'].map((field) => (
             <InputField
@@ -154,40 +209,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
           ))}
         </form>
 
-        {/* Game-like friendly styled unordered list */}
-        <ul className="space-y-3 mt-4 text-sm text-gray-700">
-          <li className="flex items-center gap-2 p-4 rounded-xl bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white hover:scale-105 transition duration-200 ease-in-out cursor-pointer shadow-lg">
-            <svg className="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" stroke="currentColor">
-              <path d="M16 8V7a4 4 0 1 0-8 0v1"></path>
-              <path fill-rule="evenodd" d="M11 7a3 3 0 1 0-6 0v1a3 3 0 0 0 6 0V7zM5 9v5a1 1 0 1 0 2 0V9a4 4 0 0 1 8 0v5a1 1 0 1 0 2 0V9a6 6 0 0 0-12 0z" clip-rule="evenodd"></path>
-            </svg>
-            Fun Game Mode 1
-          </li>
-          <li className="flex items-center gap-2 p-4 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-500 text-white hover:scale-105 transition duration-200 ease-in-out cursor-pointer shadow-lg">
-            <svg className="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" stroke="currentColor">
-              <path d="M16 8V7a4 4 0 1 0-8 0v1"></path>
-              <path fill-rule="evenodd" d="M11 7a3 3 0 1 0-6 0v1a3 3 0 0 0 6 0V7zM5 9v5a1 1 0 1 0 2 0V9a4 4 0 0 1 8 0v5a1 1 0 1 0 2 0V9a6 6 0 0 0-12 0z" clip-rule="evenodd"></path>
-            </svg>
-            Fun Game Mode 2
-          </li>
-          <li className="flex items-center gap-2 p-4 rounded-xl bg-gradient-to-r from-green-400 to-blue-500 text-white hover:scale-105 transition duration-200 ease-in-out cursor-pointer shadow-lg">
-            <svg className="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" stroke="currentColor">
-              <path d="M16 8V7a4 4 0 1 0-8 0v1"></path>
-              <path fill-rule="evenodd" d="M11 7a3 3 0 1 0-6 0v1a3 3 0 0 0 6 0V7zM5 9v5a1 1 0 1 0 2 0V9a4 4 0 0 1 8 0v5a1 1 0 1 0 2 0V9a6 6 0 0 0-12 0z" clip-rule="evenodd"></path>
-            </svg>
-            Fun Game Mode 3
-          </li>
-        </ul>
-
         <div className="flex justify-between gap-2 mt-6">
-          {isEditing && (
-            <button
-              onClick={handleDelete}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none"
-            >
-              Delete
-            </button>
-          )}
           <div className="flex gap-2">
             <button
               onClick={onClose}
@@ -202,8 +224,33 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate }) => {
               {isEditing ? 'Update' : 'Add'}
             </button>
           </div>
+
+          {/* Delete Button for Editing Mode */}
+          {isEditing && (
+            <button
+              onClick={handleDelete}
+              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none"
+            >
+              Delete
+            </button>
+          )}
         </div>
       </div>
+
+      {/* Success Message Popup */}
+      {successMessage && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-md shadow-lg">
+            <p className="text-lg font-semibold text-green-600">{successMessage}</p>
+            <button
+              onClick={() => setSuccessMessage('')}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
