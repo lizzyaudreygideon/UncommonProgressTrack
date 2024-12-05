@@ -1,0 +1,28 @@
+/* Keyframes for the bounce effect */
+@keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  
+  /* Base bounce class */
+  .bounce {
+    animation: bounce 1s infinite;
+  }
+  
+  /* Different delays for staggered animation */
+  .bounce-delay-1 {
+    animation-delay: 0s;
+  }
+  
+  .bounce-delay-2 {
+    animation-delay: 0.3s; /* Delay for the second image */
+  }
+  
+  .bounce-delay-3 {
+    animation-delay: 0.6s; /* Delay for the third image */
+  }
+  

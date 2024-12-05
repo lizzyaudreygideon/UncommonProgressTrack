@@ -1,11 +1,14 @@
-import React from 'react'
+import React from 'react';
+import StudentProfiles from './Student_profiles';  // Capitalized
 
-const Profile = () => {
+const StudentProfilePage = () => {
   return (
+    
     <div>
-      
+         <StudentProfiles /> 
     </div>
-  )
-}
+    
+  );
+};
 
-export default Profile
+export default StudentProfilePage;

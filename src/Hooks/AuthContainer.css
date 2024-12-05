@@ -1,0 +1,17 @@
+.form-wrapper {
+    transition: opacity 0.5s ease-in-out;
+    width: 100%;
+    opacity: 0;
+    display: none;
+  }
+  
+  .form-wrapper.show {
+    opacity: 1;
+    display: block;
+  }
+  
+  .form-wrapper.hide {
+    opacity: 0;
+    display: none;
+  }
+  
