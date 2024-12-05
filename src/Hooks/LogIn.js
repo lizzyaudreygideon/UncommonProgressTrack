@@ -51,16 +51,16 @@ function Login({ toggleForm }) {
   };
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center p-4 md:p-10">
-      <div className="bg-blue-900 w-full md:w-3/4 flex flex-col lg:flex-row justify-center items-center rounded-xl px-4 md:px-5 py-8 md:py-10 gap-6 lg:gap-10">
+    <div className="w-full min-h-screen flex justify-center items-center p-1 sm:p-10">
+      <div className="bg-blue-900 w-full md:w-3/4 flex flex-col lg:flex-row justify-center items-center rounded-xl px-1 sm:px-5 py-8 md:py-10 gap-6 lg:gap-10">
         {/* Form Section */}
-        <section className="w-full lg:w-1/2 px-4 lg:-ml-8">
+        <section className="w-full lg:w-1/2 px-2 sm:px-4 lg:-ml-8">
           <h2 className="text-3xl md:text-4xl font-bold w-full mb-6 bg-gradient-to-r from-white via-yellow-500 to-purple-500 text-transparent bg-clip-text">
             Welcome Back! Please Login
           </h2>
           <form
             onSubmit={handleLogin}
-            className="bg-white p-6 md:p-8 rounded-xl w-full max-w-md mx-auto"
+            className="bg-white p-3 md:p-8 rounded-xl w-full max-w-md mx-auto"
           >
             <div className="mb-4">
               <label

@@ -4,7 +4,8 @@ const StudentFilter = ({
   setSearchTerm,
   setSelectedHub,
   setSelectedStatus,
-  setSelectedGame,
+  setSelectedGender,
+  setSelectedSchool,
 }) => {
   const [hubs, setHubs] = useState(['All']);
   const [schools, setSchools] = useState(['All']);
@@ -55,7 +56,7 @@ const StudentFilter = ({
       <div className="space-y-4">
         {/* Search Field */}
         <div className="flex flex-col">
-          <label htmlFor="search" className="text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="search" className="text-sm font-medium text-white mb-1">
             Search by Name
           </label>
           <input
@@ -111,7 +112,7 @@ const StudentFilter = ({
           <select
             id="school"
             className="border rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            onChange={(e) => setSelectedGame(e.target.value)}
+            onChange={(e) => setSelectedSchool(e.target.value)}
           >
             {schools.map((school) => (
               <option key={school} value={school}>
@@ -129,7 +130,7 @@ const StudentFilter = ({
           <select
             id="gender"
             className="border rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            onChange={(e) => setSelectedGame(e.target.value)}
+            onChange={(e) => setSelectedGender(e.target.value)}
           >
             {genders.map((gender) => (
               <option key={gender} value={gender}>

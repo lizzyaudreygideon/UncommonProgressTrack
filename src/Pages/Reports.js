@@ -185,7 +185,7 @@ const ReportsPage = () => {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto px-10">
+    <div className="p-6 max-w-7xl mx-auto px-3 sm:px-10 ">
       {/* Header Section */}
       <div className="mb-8">
         <h1 className="text-5xl font-bold text-gray-900 text-center pt-4 pb-5">Reports Dashboard</h1>

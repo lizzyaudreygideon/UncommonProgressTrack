@@ -140,14 +140,14 @@ function AddStudent() {
   };
 
   return (
-    <div className="relative h-screen flex items-center justify-center bg-gray-100 m-10">
+    <div className="relative h-screen flex items-center justify-center bg-gray-100 m-2 my-20 sm-m-10">
       <img
         src={back}
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover [clip-path:polygon(0%_0%,_100%_0%,_100%_100%,_85%_100%,_15%_100%)]"
       />
 
-      <div className="relative p-4 bg-blue-500 rounded-xl shadow-lg w-full max-w-md">
+      <div className="relative p-4 bg-blue-500 rounded-xl shadow-lg w-full sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
         <h2 className="text-3xl font-bold text-white pb-2 text-center">Add Student</h2>
         <span className="text-sm text-white text-center block mb-4">Join our free creative network</span>
 
@@ -158,7 +158,7 @@ function AddStudent() {
         )}
 
         <form className="p-4 bg-white rounded-lg shadow-md space-y-3" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
               <label htmlFor="username" className="text-blue-600 font-semibold text-sm">Full Name*</label>
               <input
@@ -247,13 +247,13 @@ function AddStudent() {
             />
           </div>
 
-          <div className="flex flex-col items-center mt-3">
+          <div className="flex flex-col items-center mt-3 w-full">
             <input
               type="file"
               name="image"
               accept="image/*"
               onChange={handleFileChange}
-              className="p-1 border border-blue-400 rounded focus:outline-none focus:ring focus:ring-yellow-300"
+              className="p-1 border border-blue-400 rounded focus:outline-none focus:ring focus:ring-yellow-300 w-full"
             />
             <p className="mt-2 text-sm">{fileName}</p>
           </div>

@@ -7,8 +7,8 @@ const StudentProfiles = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedHub, setSelectedHub] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
-  const [selectedGame, setSelectedGame] = useState('All');
-  const [loading, setLoading] = useState(true);
+  const [selectedGender, setSelectedGender] = useState('All');
+  const [selectedSchool, setSelectedSchool] = useState('All');
   const [error, setError] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +21,6 @@ const StudentProfiles = () => {
 
   const fetchStudents = async (page = 1) => {
     try {
-      setLoading(true);
       const response = await fetch(
         `https://tasteless-marin-isdor-151c6308.koyeb.app/student?page=${page}&limit=${itemsPerPage}`,
         { method: 'GET' }
@@ -38,19 +37,20 @@ const StudentProfiles = () => {
         status: student.status || 'Unknown',
         current_game: student.current_game || 'None',
         school: student.school || 'Unknown School',
+        gender: student.gender || 'Unknown',
         image: student.image || fallbackImage,
       }));
 
       setStudents((prevStudents) =>
-        [...prevStudents, ...validatedData].filter(
-          (student, index, self) =>
-            self.findIndex((s) => s._id === student._id) === index
-        )
+        page === 1
+          ? validatedData
+          : [...prevStudents, ...validatedData].filter(
+              (student, index, self) =>
+                self.findIndex((s) => s._id === student._id) === index
+            )
       );
-      setLoading(false);
     } catch (err) {
       setError(err.message);
-      setLoading(false);
     }
   };
 
@@ -62,18 +62,20 @@ const StudentProfiles = () => {
     return students.filter((student) => {
       const studentName = (student.name || '').toLowerCase();
       const searchTermLower = searchTerm.toLowerCase();
-      const studentHub = student.help_hub || '';
+      const studentHub = student.hub || '';
       const studentStatus = student.status || '';
-      const studentGame = student.current_game || '';
+      const studentSchool = student.school || '';
+      const studentGender = student.gender || '';
+      
       const isNameMatch = studentName.includes(searchTermLower);
       const isHubMatch = selectedHub === 'All' || studentHub === selectedHub;
-      const isStatusMatch =
-        selectedStatus === 'All' || studentStatus === selectedStatus;
-      const isGameMatch =
-        selectedGame === 'All' || studentGame === selectedGame;
-      return isNameMatch && isHubMatch && isStatusMatch && isGameMatch;
+      const isStatusMatch = selectedStatus === 'All' || studentStatus === selectedStatus;
+      const isSchoolMatch = selectedSchool === 'All' || studentSchool === selectedSchool;
+      const isGenderMatch = selectedGender === 'All' || studentGender === selectedGender;
+      
+      return isNameMatch && isHubMatch && isStatusMatch && isSchoolMatch && isGenderMatch;
     });
-  }, [students, searchTerm, selectedHub, selectedStatus, selectedGame]);
+  }, [students, searchTerm, selectedHub, selectedStatus, selectedSchool, selectedGender]);
 
   const handleImageError = (e) => {
     e.target.src = fallbackImage;
@@ -87,22 +89,14 @@ const StudentProfiles = () => {
 
   const handleStudentUpdate = async (updatedStudent) => {
     try {
-      const response = await fetch(
-        `https://tasteless-marin-isdor-151c6308.koyeb.app/student/${updatedStudent._id}`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updatedStudent),
-        }
-      );
-      if (!response.ok) throw new Error('Failed to update student');
       setStudents((prevStudents) =>
         prevStudents.map((student) =>
           student._id === updatedStudent._id ? updatedStudent : student
         )
       );
       setUpdateMessage('Details updated successfully!');
-      setTimeout(() => setUpdateMessage(''), 3000); // Hide message after 3 seconds
+      setTimeout(() => setUpdateMessage(''), 3000);
+      setIsModalOpen(false);
     } catch (error) {
       console.error('Error updating student:', error);
     }
@@ -110,19 +104,23 @@ const StudentProfiles = () => {
 
   const handleDelete = async (studentId) => {
     try {
-      const response = await fetch(
-        `https://tasteless-marin-isdor-151c6308.koyeb.app/student/${studentId}`,
-        { method: 'DELETE' }
-      );
-      if (!response.ok) throw new Error('Failed to delete student');
       setStudents((prevStudents) =>
         prevStudents.filter((student) => student._id !== studentId)
       );
       setDeleteMessage('Student deleted successfully!');
-      setTimeout(() => setDeleteMessage(''), 3000); // Hide message after 3 seconds
+      setTimeout(() => setDeleteMessage(''), 3000);
+      setIsModalOpen(false);
+      // Refresh the list to ensure consistency
+      fetchStudents(1);
     } catch (error) {
       console.error('Error deleting student:', error);
     }
+  };
+
+  const updateStudentList = () => {
+    setStudents([]);
+    setHasMore(true);
+    fetchStudents(1);
   };
 
   useEffect(() => {
@@ -134,7 +132,7 @@ const StudentProfiles = () => {
       scrollTimeout = setTimeout(() => {
         const bottom =
           e.target.scrollHeight === e.target.scrollTop + e.target.clientHeight;
-        if (bottom && hasMore && !loading) {
+        if (bottom && hasMore) {
           fetchStudents(Math.ceil(students.length / itemsPerPage) + 1);
         }
       }, 100);
@@ -149,14 +147,8 @@ const StudentProfiles = () => {
         container.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [hasMore, loading, students.length]);
+  }, [hasMore, students.length]);
 
-  const LoadingPlaceholder = () => (
-    <div className="animate-pulse bg-gray-200 h-48 w-full"></div>
-  );
-
-  if (loading && students.length === 0)
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   if (error) return <div className="text-red-500 text-center">{error}</div>;
 
   return (
@@ -166,7 +158,8 @@ const StudentProfiles = () => {
           setSearchTerm={setSearchTerm}
           setSelectedHub={setSelectedHub}
           setSelectedStatus={setSelectedStatus}
-          setSelectedGame={setSelectedGame}
+          setSelectedGender={setSelectedGender}
+          setSelectedSchool={setSelectedSchool}
         />
       </div>
       <div
@@ -175,42 +168,31 @@ const StudentProfiles = () => {
         style={{ maxHeight: '80vh', overflowY: 'auto' }}
       >
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loading &&
-            Array.from({ length: itemsPerPage }).map((_, index) => (
-              <li key={index}>
-                <LoadingPlaceholder />
-              </li>
-            ))}
-          {!loading &&
-            filteredStudents.map((student) => (
-              <li
-                key={student._id}
-                className="bg-white border rounded-md shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-              >
-                <img
-                  src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${student.image}`}
-                  alt={`${student.name}`}
-                  className="w-full h-56 object-cover"
-                  onError={handleImageError}
-                />
-                <div className="p-4">
-                  <h3 className="font-semibold">{student.name}</h3>
-                  <p>{student.school}</p>
-                  <button
-                    onClick={() => handleStudentClick(student)}
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                  >
-                    View Details
-                  </button>
-                </div>
-              </li>
-            ))}
+          {filteredStudents.map((student) => (
+            <li
+              key={student._id}
+              className="bg-white border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-3 flex flex-col items-center"
+            >
+              <img
+                src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${student.image}`}
+                alt={`${student.name}`}
+                className="w-full h-72 sm:h-40 object-cover rounded-2xl"
+                onError={handleImageError}
+              />
+              <div className="text-center mt-4">
+                <h3 className="text-2xl font-semibold text-gray-800">{student.name}</h3>
+                <p className="text-blue-700 py-2 font-medium">{student.school}</p>
+                <button
+                  onClick={() => handleStudentClick(student)}
+                  className="mt-3 px-4 py-2 border-2 border-blue-500 text-blue-500 font-medium rounded-full hover:bg-blue-500 hover:text-white hover:border-transparent transition-colors duration-300 text-sm"
+                >
+                  View Details
+                </button>
+              </div>
+            </li>
+          ))}
         </ul>
-        {loading && (
-          <div className="text-center mt-4">
-            <p>Loading more students...</p>
-          </div>
-        )}
+
         {updateMessage && (
           <div className="text-green-500 text-center mt-4">{updateMessage}</div>
         )}
@@ -225,6 +207,7 @@ const StudentProfiles = () => {
           onClose={() => setIsModalOpen(false)}
           onUpdate={handleStudentUpdate}
           onDelete={handleDelete}
+          updateStudentList={updateStudentList}
         />
       )}
     </div>

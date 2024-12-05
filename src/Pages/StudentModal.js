@@ -1,4 +1,4 @@
-
+// StudentModal.js
 import React, { useState, useEffect } from 'react';
 
 const InputField = ({ label, name, value, onChange, type = 'text' }) => (
@@ -17,7 +17,7 @@ const InputField = ({ label, name, value, onChange, type = 'text' }) => (
   </div>
 );
 
-const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, updateStudentList }) => {
+const StudentModal = ({ student, isOpen, onClose, onUpdate, onDelete, updateStudentList }) => {
   const [formData, setFormData] = useState({
     username: '',
     school: '',
@@ -36,7 +36,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, 
   useEffect(() => {
     if (student) {
       setFormData(student);
-      setImagePreview(student.image); // Set existing image for edit mode
+      setImagePreview(student.image);
       setIsEditing(true);
     } else {
       setFormData({
@@ -66,8 +66,8 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, 
     const file = e.target.files[0];
     if (file) {
       setImagePreview(URL.createObjectURL(file));
-      setImageFile(file); // Save the file for uploading
-      setFormData((prev) => ({ ...prev, image: file.name })); // Update formData with the file name
+      setImageFile(file);
+      setFormData((prev) => ({ ...prev, image: file.name }));
     }
   };
 
@@ -99,7 +99,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, 
     });
 
     if (imageFile) {
-      formDataToSend.append('image', imageFile); // Append the image file
+      formDataToSend.append('image', imageFile);
     }
 
     const endpoint = isEditing
@@ -119,10 +119,16 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, 
       }
 
       const updatedStudent = await response.json();
-      if (isEditing) onUpdate(updatedStudent);
-      else onCreate(updatedStudent);
+      if (isEditing) {
+        onUpdate(updatedStudent);
+        updateStudentList(); // Refresh the list after update
+      }
 
-      onClose();
+      setSuccessMessage(isEditing ? 'Student updated successfully!' : 'Student added successfully!');
+      setTimeout(() => {
+        setSuccessMessage('');
+        onClose();
+      }, 2000);
     } catch (err) {
       setError(err.message);
     }
@@ -141,11 +147,12 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, 
         throw new Error(errorData.message || 'Failed to delete student');
       }
 
-      // After deleting, update the student list in the parent component without needing a page refresh
-      onDelete(student._id); // Pass the student ID to the parent component
-      setSuccessMessage('Student profile deleted successfully!');
-      onClose();
-      updateStudentList(); // This function will re-fetch or update the student list
+      onDelete(student._id);
+      setSuccessMessage('Student deleted successfully!');
+      setTimeout(() => {
+        setSuccessMessage('');
+        onClose();
+      }, 2000);
     } catch (err) {
       setError(err.message);
     }
@@ -159,18 +166,18 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onCreate, onDelete, 
       aria-modal="true"
     >
       <div className="bg-white rounded-lg max-w-lg w-full p-6 shadow-lg overflow-y-auto max-h-[80vh]">
-        <h2 id="student-modal-title" className="text-2xl font-bold mb-4 text-gray-800">
+        <h2 id="student-modal-title" className="text-4xl font-bold mb-6 text-gray-800">
           {isEditing ? 'Edit Student' : 'Add Student'}
         </h2>
-        {error && <div className="text-red-500 mb-4">{error}</div>}
+        {error && <div className="text-blue-500 mb-4">{error}</div>}
+        {successMessage && <div className="text-blue-900 mb-4">{successMessage}</div>}
 
-        {/* Displaying the existing image */}
         {imagePreview && (
           <div className="mb-4">
             <img
               src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${imagePreview}`} // Adjust to the URL where the image is hosted
               alt="Student"
-              className="w-full h-64 rounded-md mb-2 object-cover"
+              className="w-full h-52 rounded-md mb-2 object-cover"
             />
             <button
               onClick={() => setImagePreview(null)}
