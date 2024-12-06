@@ -75,12 +75,12 @@ const AboutUs = () => {
         </div>
 
         {/* Main Content */}
-        <div className="relative h-full flex flex-col items-center justify-center px-4 text-center z-10 " >
+        <div className="relative h-full flex flex-col items-center justify-center px-3 sm:px-4 text-center z-10 " >
           <div className="space-y-3">
-            <h1 className="text-6xl font-bold text-white leading-tight">
+            <h1 className="text-2xl sm:text-6xl font-bold text-white leading-tight">
               Unleash Your Statistics with ScratchTracker
             </h1>
-            <p className="text-lg font-medium text-purple-200 my-6 max-w-2xl mx-auto">
+            <p className="text-lg  font-medium text-purple-200 my-6 max-w-2xl mx-auto">
               At Uncommon, we empower the next generation of Scratch developers with innovative tools, real-time progress tracking, and a vibrant community.
             </p>
             <div className="mt-4 flex gap-4 justify-center items-center">
@@ -94,7 +94,7 @@ const AboutUs = () => {
       </div>
 
       {/* Features Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-20 px-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-20 px-5 sm:px-10">
         {features.map((feature, index) => (
           <FeatureCard key={index} {...feature} />
         ))}

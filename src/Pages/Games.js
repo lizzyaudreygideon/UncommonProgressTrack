@@ -55,6 +55,7 @@ function Games() {
               src={game.img}
               alt={game['main-text']}
               className="m-auto mb-4 w-full h-48 object-cover rounded-md"
+              loading="lazy"
             />
             <div className="bg-white p-4 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold text-black mb-2">{game['main-text']}</h3>

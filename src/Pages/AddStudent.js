@@ -145,6 +145,7 @@ function AddStudent() {
         src={back}
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover [clip-path:polygon(0%_0%,_100%_0%,_100%_100%,_85%_100%,_15%_100%)]"
+        loading="lazy"
       />
 
       <div className="relative p-4 bg-blue-500 rounded-xl shadow-lg w-full sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">

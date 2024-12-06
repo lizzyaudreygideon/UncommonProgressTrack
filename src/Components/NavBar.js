@@ -11,12 +11,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-900 px-8 py-4 flex justify-between items-center relative shadow-lg">
+    <nav className="bg-blue-900 px-5 sm:px-8 py-4 flex justify-between items-center relative shadow-lg">
       <Link to="/" className="flex items-center space-x-2">
         <img 
           className="h-12 w-auto object-contain" 
           src={logo} 
           alt="Logo" 
+          loading="lazy"
         />
       </Link>
       

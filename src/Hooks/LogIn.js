@@ -137,18 +137,21 @@ function Login({ toggleForm }) {
             alt="Dice"
             className="w-24 animate-bounce"
             style={{ animationDelay: '0ms' }}
+            loading="lazy"
           />
           <img
             src={form1}
             alt="Form"
             className="w-24 animate-bounce"
             style={{ animationDelay: '150ms' }}
+            loading="lazy"
           />
           <img
             src={form3}
             alt="File"
             className="w-24 animate-bounce"
             style={{ animationDelay: '300ms' }}
+            loading="lazy"
           />
         </div>
       </div>
