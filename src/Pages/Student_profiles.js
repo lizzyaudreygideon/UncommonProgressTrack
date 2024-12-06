@@ -178,6 +178,7 @@ const StudentProfiles = () => {
                 alt={`${student.name}`}
                 className="w-full h-72 sm:h-40 object-cover rounded-2xl"
                 onError={handleImageError}
+                loading="lazy"
               />
               <div className="text-center mt-4">
                 <h3 className="text-2xl font-semibold text-gray-800">{student.name}</h3>

@@ -50,6 +50,7 @@ const Gallery = () => {
               alt="/"
               className="w-full h-full rounded-2xl object-cover"
               style={{ objectFit: "cover" }} 
+              loading="lazy"
             />
           </div>
         ))}
@@ -75,6 +76,7 @@ const Gallery = () => {
               alt="/"
               className="w-full h-full rounded-2xl object-cover"
               style={{ objectFit: "cover" }}
+              loading="lazy"
             />
           </div>
         ))}

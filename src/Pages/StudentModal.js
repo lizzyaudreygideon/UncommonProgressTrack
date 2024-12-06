@@ -178,6 +178,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onDelete, updateStud
               src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${imagePreview}`} // Adjust to the URL where the image is hosted
               alt="Student"
               className="w-full h-52 rounded-md mb-2 object-cover"
+              loading="lazy"
             />
             <button
               onClick={() => setImagePreview(null)}
