@@ -103,8 +103,8 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onDelete, updateStud
     }
 
     const endpoint = isEditing
-      ? `https://tasteless-marin-isdor-151c6308.koyeb.app/student/${student._id}`
-      : `https://tasteless-marin-isdor-151c6308.koyeb.app/student`;
+      ? `https://continuing-veradis-uncommon-44b1416d.koyeb.app/student/${student._id}`
+      : `https://continuing-veradis-uncommon-44b1416d.koyeb.app/student`;
     const method = isEditing ? 'PUT' : 'POST';
 
     try {
@@ -138,7 +138,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onDelete, updateStud
     if (!window.confirm('Are you sure you want to delete this student?')) return;
 
     try {
-      const response = await fetch(`https://tasteless-marin-isdor-151c6308.koyeb.app/student/${student._id}`, {
+      const response = await fetch(`https://continuing-veradis-uncommon-44b1416d.koyeb.app/student/${student._id}`, {
         method: 'DELETE',
       });
 
@@ -175,7 +175,7 @@ const StudentModal = ({ student, isOpen, onClose, onUpdate, onDelete, updateStud
         {imagePreview && (
           <div className="mb-4">
             <img
-              src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${imagePreview}`} // Adjust to the URL where the image is hosted
+              src={`https://continuing-veradis-uncommon-44b1416d.koyeb.app/${imagePreview}`} // Adjust to the URL where the image is hosted
               alt="Student"
               className="w-full h-52 rounded-md mb-2 object-cover"
               loading="lazy"

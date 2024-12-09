@@ -19,9 +19,9 @@ const StudentFilter = ({
     const fetchData = async () => {
       try {
         const [hubsResponse, schoolsResponse, gendersResponse] = await Promise.all([
-          fetch('https://tasteless-marin-isdor-151c6308.koyeb.app/student/hubs'),
-          fetch('https://tasteless-marin-isdor-151c6308.koyeb.app/student/schools'),
-          fetch('https://tasteless-marin-isdor-151c6308.koyeb.app/student/genders')
+          fetch('https://continuing-veradis-uncommon-44b1416d.koyeb.app/student/hubs'),
+          fetch('https://continuing-veradis-uncommon-44b1416d.koyeb.app/student/schools'),
+          fetch('https://continuing-veradis-uncommon-44b1416d.koyeb.app/student/genders')
         ]);
 
         const hubsData = await hubsResponse.json();
