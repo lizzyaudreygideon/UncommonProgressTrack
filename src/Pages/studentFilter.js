@@ -42,7 +42,7 @@ const StudentFilter = ({
   }, []);
 
   if (loading) {
-    return <div className="p-4 text-center">Loading filters...</div>;
+    return <div className="p-4 text-center">Loading Profiles...</div>;
   }
 
   if (error) {
