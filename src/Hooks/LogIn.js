@@ -28,7 +28,7 @@ function Login({ toggleForm }) {
     }
 
     try {
-      const response = await axios.post('https://tasteless-marin-isdor-151c6308.koyeb.app/auth/login', {
+      const response = await axios.post('https://continuing-veradis-uncommon-44b1416d.koyeb.app/auth/login', {
         email,
         password,
       });

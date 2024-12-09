@@ -22,7 +22,7 @@ const StudentProfiles = () => {
   const fetchStudents = async (page = 1) => {
     try {
       const response = await fetch(
-        `https://tasteless-marin-isdor-151c6308.koyeb.app/student?page=${page}&limit=${itemsPerPage}`,
+        `https://continuing-veradis-uncommon-44b1416d.koyeb.app/student?page=${page}&limit=${itemsPerPage}`,
         { method: 'GET' }
       );
       if (!response.ok) throw new Error('Failed to fetch students');
@@ -174,7 +174,7 @@ const StudentProfiles = () => {
               className="bg-white border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-3 flex flex-col items-center"
             >
               <img
-                src={`https://tasteless-marin-isdor-151c6308.koyeb.app/${student.image}`}
+                src={`https://continuing-veradis-uncommon-44b1416d.koyeb.app/${student.image}`}
                 alt={`${student.name}`}
                 className="w-full h-72 sm:h-40 object-cover rounded-2xl"
                 onError={handleImageError}

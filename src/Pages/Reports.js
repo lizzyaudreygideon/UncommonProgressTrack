@@ -79,7 +79,7 @@ const ReportsPage = () => {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("https://tasteless-marin-isdor-151c6308.koyeb.app/student");
+      const response = await fetch("https://continuing-veradis-uncommon-44b1416d.koyeb.app/student");
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
 
@@ -144,7 +144,7 @@ const ReportsPage = () => {
   const handleDownload = async (format) => {
     setDownloadLoading(true);
     try {
-      const response = await fetch("https://tasteless-marin-isdor-151c6308.koyeb.app/student");
+      const response = await fetch("https://continuing-veradis-uncommon-44b1416d.koyeb.app/student");
       const data = await response.json();
 
       if (format === 'csv') {
